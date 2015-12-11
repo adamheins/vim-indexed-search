@@ -64,28 +64,9 @@ function! s:index_message(total, exact, after, force)
     if a:total == 0
         let hl = "Error"
         let msg = "No matches"
-    elseif a:exact == 1 && a:total == 1 && g:indexed_search_numbered_only != 1
-        " hl remains default
-        let msg = "Single match"
-    elseif a:exact == 1 && g:indexed_search_numbered_only != 1
-        let hl = "Search"
-        let msg = "First of ". shortmatch
-    elseif a:exact == a:total && g:indexed_search_numbered_only != 1
-        let hl = "LineNr"
-        let msg = "Last of ". shortmatch
     elseif a:exact >= 0
         let msg = (g:indexed_search_shortmess ? "" : "Match ")
                  \. a:exact ." of ". matches
-    elseif a:after == 0
-        let hl = "MoreMsg"
-        let msg = "Before first match, of ". shortmatch
-        if a:total == 1 | let msg = "Before single match" | endif
-    elseif a:after == a:total
-        let hl = "WarningMsg"
-        let msg = "After last match of ". shortmatch
-        if a:total == 1 | let msg = "After single match" | endif
-    else
-        let msg = "Between matches ". a:after ."-". (a:after+1) ." of ". matches
     endif
 
     return [hl, msg."  /".@/."/"]
