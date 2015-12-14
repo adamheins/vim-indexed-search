@@ -62,14 +62,14 @@ function! s:index_message(total, exact, after, force)
     let shortmatch = matches . (g:indexed_search_shortmess ? "" : " matches")
 
     if a:total == 0
-        let hl = "Error"
+        let hl = "ErrorMsg"
         let msg = "No matches"
     elseif a:exact >= 0
         let msg = (g:indexed_search_shortmess ? "" : "Match ")
                  \. a:exact ." of ". matches
     endif
 
-    return [hl, msg."  /".@/."/"]
+    return [hl, msg." /".@/."/"]
 endfunction
 
 function! s:current_index(force)
@@ -93,7 +93,8 @@ function! indexed_search#show_index(force)
     let s:save_ut = &ut
     let s:force = a:force
 
-    if &ut > 200 | let &ut = 200 | endif
+    " Here I use an update time of 0. Is this a bad idea? Quite possibly.
+    if &ut > 0 | let &ut = 0 | endif
     augroup IndexedSearchAutoCmds
         autocmd CursorHold *
             \ let &ut = s:save_ut         |
