@@ -63,13 +63,12 @@ function! s:index_message(total, exact, after, force)
 
     if a:total == 0
         let hl = "ErrorMsg"
-        let msg = "No matches"
+        let msg = ""
     elseif a:exact >= 0
-        let msg = (g:indexed_search_shortmess ? "" : "Match ")
-                 \. a:exact ." of ". matches
+        let msg = a:exact ." of ". matches ." "
     endif
 
-    return [hl, msg." /".@/."/"]
+    return [hl, msg."/".@/."/"]
 endfunction
 
 function! s:current_index(force)
