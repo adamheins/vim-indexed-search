@@ -92,6 +92,8 @@ function! indexed_search#show_index(force)
     let s:save_ut = &ut
     let s:force = a:force
 
+    set cursorcolumn
+
     " Here I use an update time of 0. Is this a bad idea? Quite possibly.
     if &ut > 0 | let &ut = 0 | endif
     augroup IndexedSearchAutoCmds
